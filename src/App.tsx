@@ -2,7 +2,17 @@ import '@/App.css';
 import { Label } from './components/ui/label';
 import { Input } from './components/ui/input';
 import { Button } from './components/ui/button';
-import { Maximize, Minimize, Minus, Plus, RectangleHorizontal, Search, X } from 'lucide-react';
+import {
+	Maximize,
+	Minimize,
+	Minus,
+	Play,
+	Plus,
+	RectangleHorizontal,
+	Search,
+	StopCircle,
+	X,
+} from 'lucide-react';
 import { Table, TableBody, TableHead, TableHeader, TableRow } from './components/ui/table';
 import { ModeToggle } from './components/mode-toggle';
 import { useEffect, useMemo, useState } from 'react';
@@ -72,6 +82,14 @@ function App() {
 		});
 	};
 
+	const handleStartProxyClick = () => {
+		invoke('start_proxy');
+	};
+
+	const handleStopProxyClick = () => {
+		invoke('stop_proxy');
+	};
+
 	const filteredPackets = useMemo(() => {
 		return packets.filter((packet) => JSON.stringify(packet).includes(searchTerm));
 	}, [packets, searchTerm]);
@@ -83,6 +101,14 @@ function App() {
 					<h1 className='text-xl font-bold'>Kyoko</h1>
 				</div>
 				<div className='flex items-center space-x-2'>
+					<Button variant={'outline'} size={'icon'} onClick={handleStartProxyClick}>
+						<Play className='h-4 w-4' />
+					</Button>
+
+					<Button variant={'outline'} size={'icon'} onClick={handleStopProxyClick}>
+						<StopCircle className='h-4 w-4' />
+					</Button>
+
 					<Button variant={'outline'} size={'icon'} onClick={handleNewPacketClick}>
 						<Plus className='h-4 w-4' />
 					</Button>
